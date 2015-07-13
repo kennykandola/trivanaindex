@@ -297,11 +297,72 @@ input[type="color"]:focus,
             
         </section><!--END SCREENS WRAPPER-->
         <!--BEGIN DEMO WRAPPER-->
+<?php
 
+if( session_status() == PHP_SESSION_NONE ) session_start();
+
+
+            if (isset($_POST['submit'])) {
+
+
+                
+
+
+                $message =
+
+                    'Name = ' . $_POST['q1'] . '<br />
+    Email = ' . $_POST['q2'] . '<br />
+    Travel Date = ' . $_POST['q3'] . '<br />
+    Other Notes = ' . $_POST['q4'] . '<br />
+
+    ';
+
+
+
+
+                require '/home/trivanac/public_html/phpmailer/PHPMailer-master/PHPMailerAutoload.php';
+
+                $mail = new PHPMailer;
+
+//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+                $mail->isSMTP();                                      // Set mailer to use SMTP
+                $mail->Host = 'localhost';  // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                $mail->Username = 'kenny@trivana.co';                 // SMTP username
+                $mail->Password = 'indian32';                           // SMTP password
+                $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 465;                                    // TCP port to connect to
+
+                $mail->From = ('kenny@trivana.co');
+                $mail->FromName = 'Trivana';
+                $mail->addAddress('kenny@trivana.co', 'Trivana Rep.');    // kennykandola89@gmail.com // Add a recipient
+                $mail->addAddress($_POST['q2']);               // Name is optional
+                $mail->addReplyTo('info@example.com', 'Information');
+                $mail->addCC();
+                $mail->addBCC();
+
+                $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+                $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $email_from = 'email';
+
+                $mail->Subject = 'Hello from Trivana';
+                $mail->Body = ($message);
+
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+
+               
+
+
+            };
+?>
         <section class="section-80-80 grayBgSection" id="demoContainer">
             <!-- <img alt="" class="triangleTop" src="img/tri-gray-top.png"> -->
 
         <div class="container">
+            
 
         <div class="row">
             <div class="col-md-12 text-center">
